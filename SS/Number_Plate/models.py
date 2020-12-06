@@ -2,12 +2,26 @@ from django.db import models
 # from ocr import OCR
 from .imageProcess import OCR
 
+# class ImgUpload(models.FileField):
+    
+
 # Create your models here.
 class Photo(models.Model):
 
-    ocr = OCR()
-    input_image = models.ImageField()
-    print(f"input_image type: {type(input_image)}")
+    TEXT_IDENTIFIED = ""
+    # def __init__(self):
+    #     self.TEXT_IDENTIFIED = ""
+
+    def save(self, **kwargs):
+        super(Photo, self).save(**kwargs)
+        ocr = OCR()
+        text_identified = ocr.img2txt()
+        
+
+    input_image = models.FileField()
+    # image = input_image.
+    # print(input_image.__dict__)
+    # print(f"input_image type: {type(input_image.read())}")
     # text = ocr.img2txt(image=input_image)
     # print(text)
     number_identified = models.CharField(max_length=30)

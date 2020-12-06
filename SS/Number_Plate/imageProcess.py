@@ -6,15 +6,18 @@ from PIL import Image
 
 class OCR:
 
-    def img2txt(self, image):
+    def img2txt(self):
         """
         Input: PIL image
         Returns: (string) Number plate number. 
         """                    
-
+        from .models import Photo
+        img = Photo.objects.last().input_image
+        img = np.asarray(bytearray(img.read()), dtype="uint8")
+        img = cv2.imdecode(img, cv2.IMREAD_COLOR)
         # Reads the image and resizes it
         # img = np.array(Image.open(image))[...,:3]
-        img = cv2.imread('/home/zeus/Desktop/SS Project/license_plates/group1/004.jpg',cv2.IMREAD_COLOR)
+        # img = cv2.imread('/home/zeus/Desktop/SS Project/license_plates/group1/004.jpg',cv2.IMREAD_COLOR)
         img = cv2.resize(img, (600,400) )
 
         # Grayscales
@@ -29,7 +32,7 @@ class OCR:
         contours = imutils.grab_contours(contours)
         contours = sorted(contours, key = cv2.contourArea, reverse = True)[:10]
         screenCnt = None
-
+        text = "No Number plate detected"
         # Find all the enclosures, and iterate a for loop to find a rectangular enclosure
         for c in contours:
             
@@ -64,13 +67,18 @@ class OCR:
             print("The Number Plate is:",text)
             img = cv2.resize(img,(500,300))
             Cropped = cv2.resize(Cropped,(400,200))
-            cv2.imshow('car',img)
-            cv2.imshow('Cropped',Cropped)
+            # cv2.imshow('car',img)
+            # cv2.imshow('Cropped',Cropped)
 
         else:
             print("Please click a clearer photo")
 
         # Closes the program
-        cv2.waitKey(0)
+        # cv2.waitKey(0)
         cv2.destroyAllWindows()
+
+        # last_record = Photo.objects.last()
+        # last_record.number_identified = text
+        # last_record.save()
+
         return text
