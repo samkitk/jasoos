@@ -4,7 +4,7 @@ import numpy as np
 import pytesseract
 #pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
 
-img = cv2.imread('license_plates/group1/005.jpg',cv2.IMREAD_COLOR)
+img = cv2.imread('license_plates/group1/007.jpg',cv2.IMREAD_COLOR)
 img = cv2.resize(img, (600,400) )
 
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) 
