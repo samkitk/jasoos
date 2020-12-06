@@ -4,7 +4,7 @@ import numpy as np
 import pytesseract
                    
 # Reads the image and resizes it
-img = cv2.imread('image5.png',cv2.IMREAD_COLOR)
+img = cv2.imread('/home/zeus/Desktop/SS Project/license_plates/group1/007.jpg',cv2.IMREAD_COLOR)
 img = cv2.resize(img, (600,400) )
 
 # Grayscales
