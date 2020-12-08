@@ -10,9 +10,11 @@ img = cv2.resize(img, (600,400) )
 # Grayscales
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) 
 gray = cv2.bilateralFilter(gray, 13, 55, 55)
+cv2.imshow('gray',gray)
 
 # Binarizes the image 
 edged = cv2.Canny(gray, 30, 200)
+cv2.imshow('binarized',edged)
 
 # Grabs the counters using a rectangular box and crops that
 contours = cv2.findContours(edged.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
